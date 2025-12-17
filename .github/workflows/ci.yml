@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint & Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint JavaScript
+        run: npx eslint inject-css.js --no-eslintrc --env node --env es2022 --parser-options=ecmaVersion:2022
+
+      - name: Validate YAML themes
+        run: |
+          npm install yaml
+          node -e "
+            const fs = require('fs');
+            const YAML = require('yaml');
+            const themes = fs.readdirSync('themes').filter(f => f.endsWith('.yaml'));
+            themes.push('theme.yaml');
+            let failed = false;
+            for (const file of themes) {
+              const path = file.includes('/') ? file : (file === 'theme.yaml' ? file : 'themes/' + file);
+              try {
+                const content = fs.readFileSync(path, 'utf8');
+                const parsed = YAML.parse(content);
+                if (!parsed.name || !parsed.colors) {
+                  console.error('❌ ' + path + ': missing required fields (name, colors)');
+                  failed = true;
+                } else {
+                  console.log('✓ ' + path);
+                }
+              } catch (e) {
+                console.error('❌ ' + path + ': ' + e.message);
+                failed = true;
+              }
+            }
+            if (failed) process.exit(1);
+          "
+
+      - name: Validate CSS syntax
+        run: |
+          npm install css-tree
+          node -e "
+            const fs = require('fs');
+            const csstree = require('css-tree');
+            const css = fs.readFileSync('base.css', 'utf8');
+            try {
+              csstree.parse(css);
+              console.log('✓ base.css');
+            } catch (e) {
+              console.error('❌ base.css: ' + e.message);
+              process.exit(1);
+            }
+          "
