@@ -24,7 +24,30 @@ jobs:
         run: npm install
 
       - name: Lint JavaScript
-        run: npx eslint inject-css.js --no-eslintrc --env node --env es2022 --parser-options=ecmaVersion:2022
+        run: |
+          cat > eslint.config.js << 'ESLINT'
+          export default [{
+            files: ["inject-css.js"],
+            languageOptions: {
+              ecmaVersion: 2022,
+              sourceType: "commonjs",
+              globals: {
+                require: "readonly",
+                module: "readonly",
+                process: "readonly",
+                console: "readonly",
+                __dirname: "readonly",
+                setTimeout: "readonly",
+                Buffer: "readonly"
+              }
+            },
+            rules: {
+              "no-unused-vars": "error",
+              "no-undef": "error"
+            }
+          }]
+          ESLINT
+          npx eslint inject-css.js
 
       - name: Validate YAML themes
         run: |
