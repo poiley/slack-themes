@@ -12,7 +12,7 @@ Custom CSS themes for the Slack desktop app on macOS.
 - **Persistent** — Theme reapplies automatically on Slack launch
 - **No app modification** — Uses Chrome DevTools Protocol, doesn't modify Slack's code
 
-## Quick Start
+## Installation
 
 ### Prerequisites
 
@@ -20,7 +20,7 @@ Custom CSS themes for the Slack desktop app on macOS.
 - Node.js 18+
 - Slack desktop app
 
-### Installation
+### Setup
 
 ```bash
 # Clone the repository
@@ -28,19 +28,33 @@ git clone https://github.com/poiley/slack-themes.git ~/.config/slack
 
 # Install dependencies
 cd ~/.config/slack
-npm install ws
+npm install
 
-# Start Slack with theming enabled
-./start-slack.sh
+# Copy the themed launcher to Applications
+cp -r SlackThemed.app /Applications/
 ```
 
-### Apply Theme Changes
+### Replace Slack in Your Dock
 
-After editing `theme.yaml`:
+1. Remove the original Slack from your Dock
+2. Drag `SlackThemed.app` from `/Applications` to your Dock
+3. (Optional) Copy Slack's icon to SlackThemed:
+   ```bash
+   cp /Applications/Slack.app/Contents/Resources/electron.icns \
+      /Applications/SlackThemed.app/Contents/Resources/icon.icns
+   ```
+
+Now launch Slack using **SlackThemed** — your theme will be applied automatically.
+
+## Applying Theme Changes
+
+After editing `theme.yaml`, re-apply your theme:
 
 ```bash
-node inject-css.js
+cd ~/.config/slack && node inject-css.js
 ```
+
+Or simply relaunch SlackThemed.
 
 ## Configuration
 
@@ -79,6 +93,25 @@ colors:
 font:
   family: '"SF Mono", Consolas, monospace'
 ```
+
+### Switching Themes
+
+Pre-made themes are included in the `themes/` directory:
+
+- `github-dark-high-contrast.yaml`
+- `dracula.yaml`
+- `nord.yaml`
+- `catppuccin-mocha.yaml`
+- `solarized-dark.yaml`
+- `one-dark.yaml`
+
+To switch themes, copy your preferred theme to `theme.yaml`:
+
+```bash
+cp ~/.config/slack/themes/dracula.yaml ~/.config/slack/theme.yaml
+```
+
+Then relaunch SlackThemed or run `node inject-css.js`.
 
 ### Example Themes
 
@@ -244,46 +277,11 @@ font:
 ```
 </details>
 
-## Usage
-
-### Manual Launch
-
-```bash
-# Start Slack with debugging enabled
-/Applications/Slack.app/Contents/MacOS/Slack --remote-debugging-port=9222 &
-
-# Wait for Slack to load, then inject theme
-node ~/.config/slack/inject-css.js
-```
-
-### Automatic Launch (Recommended)
-
-Use the included `start-slack.sh` script:
-
-```bash
-~/.config/slack/start-slack.sh
-```
-
-This script:
-1. Starts Slack with debugging enabled
-2. Waits for Slack to fully load
-3. Automatically injects the theme
-
-### Dock App (Optional)
-
-For convenience, you can use the included `SlackThemed.app` wrapper:
-
-1. Copy `SlackThemed.app` to `/Applications`
-2. Replace Slack in your Dock with SlackThemed
-3. Optionally, change the app icon to match Slack
-
-The wrapper app launches Slack with theming automatically applied.
-
 ## How It Works
 
 This project uses the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) to inject CSS into Slack's Electron-based desktop app.
 
-1. Slack is launched with `--remote-debugging-port=9222`
+1. SlackThemed launches Slack with `--remote-debugging-port=9222`
 2. The inject script connects via WebSocket to the DevTools endpoint
 3. CSS is injected into the page using `Runtime.evaluate`
 4. A `<style>` element is added to the document head
@@ -294,49 +292,57 @@ This project uses the [Chrome DevTools Protocol](https://chromedevtools.github.i
 
 ```
 ~/.config/slack/
-├── theme.yaml          # Your theme configuration
+├── theme.yaml          # Your active theme
 ├── base.css            # CSS selectors (edit to add new elements)
 ├── inject-css.js       # Injection script
-├── start-slack.sh      # Launch script
-├── SlackThemed.app/    # Optional Dock wrapper app
-└── README.md           # This file
+├── start-slack.sh      # Launch helper (used by SlackThemed.app)
+├── SlackThemed.app/    # Dock app launcher
+├── themes/             # Pre-made themes
+│   ├── github-dark-high-contrast.yaml
+│   ├── dracula.yaml
+│   ├── nord.yaml
+│   ├── catppuccin-mocha.yaml
+│   ├── solarized-dark.yaml
+│   └── one-dark.yaml
+└── README.md
 ```
 
 ## Troubleshooting
 
 ### Theme not applying
 
-1. Make sure Slack is running with debugging enabled:
+1. Make sure you launched Slack using **SlackThemed**, not the original Slack app
+2. Verify the debug port is active:
    ```bash
    curl -s http://127.0.0.1:9222/json | head -5
    ```
-   If this returns JSON, debugging is enabled.
-
-2. Run the injection script manually:
+3. Manually re-inject the theme:
    ```bash
-   node ~/.config/slack/inject-css.js
+   cd ~/.config/slack && node inject-css.js
    ```
 
 ### Theme disappears after navigating
 
-The theme may need to be reinjected after certain navigation events. Run `node inject-css.js` again.
+The theme may need to be reinjected after certain navigation events. Run `node inject-css.js` again, or relaunch SlackThemed.
 
 ### Slack won't start
 
 If Slack crashes on launch:
+
 ```bash
 # Kill any existing Slack processes
 pkill -x Slack
 
-# Start fresh
-./start-slack.sh
+# Relaunch SlackThemed
+open /Applications/SlackThemed.app
 ```
 
 ### Changes not visible
 
-After editing `theme.yaml`, you must rerun the injection:
+After editing `theme.yaml`, you must re-inject the theme:
+
 ```bash
-node inject-css.js
+cd ~/.config/slack && node inject-css.js
 ```
 
 ## Advanced
@@ -351,19 +357,18 @@ If you find UI elements that aren't themed, you can add selectors to `base.css`:
 4. Add the selector to the appropriate section in `base.css`
 5. Use `var(--theme-*)` variables for colors
 
-### Creating a Theme Pack
+### Creating Custom Themes
 
-To share multiple themes:
-
-```
-themes/
-├── github-dark-high-contrast.yaml
-├── dracula.yaml
-├── nord.yaml
-└── catppuccin-mocha.yaml
-```
-
-Copy your preferred theme to `theme.yaml` to activate it.
+1. Copy an existing theme as a starting point:
+   ```bash
+   cp ~/.config/slack/themes/nord.yaml ~/.config/slack/themes/my-theme.yaml
+   ```
+2. Edit the colors in your new theme file
+3. Activate it:
+   ```bash
+   cp ~/.config/slack/themes/my-theme.yaml ~/.config/slack/theme.yaml
+   ```
+4. Relaunch SlackThemed or run `node inject-css.js`
 
 ## Contributing
 
@@ -375,7 +380,6 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 - New CSS selectors for unstyled elements
 - Linux/Windows support
 - Theme switching CLI tool
-- Live theme preview
 
 ## License
 
