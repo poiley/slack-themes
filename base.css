@@ -1,0 +1,647 @@
+/*
+ * Slack Theme Base CSS
+ * This file contains all selectors that reference theme variables.
+ * Edit theme.yaml to customize colors and fonts.
+ */
+
+/* ============================================
+   GLOBAL FONT OVERRIDE
+   ============================================ */
+body,
+[lang],
+.p-message_pane,
+.c-message__body,
+.c-message_kit__text,
+.p-rich_text_section,
+.c-texty_input,
+.ql-editor,
+.c-mrkdwn__pre,
+.c-mrkdwn__code,
+pre, code,
+textarea,
+input,
+button,
+.c-button,
+.p-channel_sidebar__name,
+.p-channel_sidebar__channel_icon_prefix,
+* {
+  font-family: var(--theme-font) !important;
+}
+
+/* ============================================
+   BASE / BODY
+   ============================================ */
+body,
+.p-client,
+.p-client_container,
+.p-workspace__primary_view_body,
+.p-workspace__primary_view_contents {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+.p-channel_sidebar,
+.p-channel_sidebar__static_list,
+.p-channel_sidebar__list,
+.p-workspace__sidebar_header {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+}
+
+.p-channel_sidebar__channel,
+.p-channel_sidebar__link,
+.p-channel_sidebar__channel--selected,
+.p-channel_sidebar__link--selected {
+  color: var(--theme-fg) !important;
+}
+
+.p-channel_sidebar__channel:hover,
+.p-channel_sidebar__link:hover {
+  background-color: var(--theme-bg-subtle) !important;
+}
+
+.p-channel_sidebar__channel--selected,
+.p-channel_sidebar__link--selected,
+.p-channel_sidebar__channel--active,
+.p-channel_sidebar__link--active {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+}
+
+/* Sidebar section headers */
+.p-channel_sidebar__section_heading,
+.p-channel_sidebar__section_heading_label {
+  color: var(--theme-fg-muted) !important;
+}
+
+/* Unread indicator */
+.p-channel_sidebar__channel--unread .p-channel_sidebar__name,
+.p-channel_sidebar__link--unread .p-channel_sidebar__name {
+  color: var(--theme-fg) !important;
+  font-weight: bold !important;
+}
+
+/* Unread badge */
+.p-channel_sidebar__badge,
+.c-mention_badge {
+  background-color: var(--theme-red) !important;
+  color: var(--theme-bg) !important;
+}
+
+/* Sidebar icons */
+.p-channel_sidebar__channel_icon,
+.c-icon {
+  color: var(--theme-fg-subtle) !important;
+}
+
+/* ============================================
+   TOP HEADER / TOOLBAR
+   ============================================ */
+.p-top_nav,
+.p-top_nav__toolbar,
+.p-view_header,
+.p-classic_nav__model__title__name,
+.p-classic_nav__model__title__info {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+  border-bottom: 1px solid var(--theme-border-muted) !important;
+}
+
+.p-top_nav__search,
+.p-top_nav__search__text {
+  background-color: var(--theme-bg-subtle) !important;
+  color: var(--theme-fg) !important;
+  border-color: var(--theme-border) !important;
+}
+
+/* ============================================
+   MESSAGE PANE
+   ============================================ */
+.p-message_pane,
+.p-message_pane__foreword,
+.p-message_pane__top_banners,
+.c-virtual_list__scroll_container,
+.c-scrollbar__hider {
+  background-color: var(--theme-bg) !important;
+}
+
+/* Individual messages */
+.c-message,
+.c-message_kit__background,
+.c-message--light,
+.c-message--hover,
+.c-message_list__day_divider__label {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+}
+
+.c-message:hover,
+.c-message_kit__background:hover {
+  background-color: var(--theme-bg-subtle) !important;
+}
+
+/* Message text */
+.c-message__body,
+.c-message_kit__text,
+.p-rich_text_section {
+  color: var(--theme-fg) !important;
+}
+
+/* Sender name */
+.c-message__sender,
+.c-message__sender_link,
+.c-message_kit__sender {
+  color: var(--theme-accent) !important;
+}
+
+/* Timestamp */
+.c-timestamp,
+.c-timestamp__label,
+.c-message__edited_label {
+  color: var(--theme-fg-subtle) !important;
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+a,
+.c-link,
+.c-mrkdwn__link {
+  color: var(--theme-accent) !important;
+}
+
+a:hover,
+.c-link:hover,
+.c-mrkdwn__link:hover {
+  color: var(--theme-accent-bright) !important;
+}
+
+/* ============================================
+   CODE BLOCKS & INLINE CODE
+   ============================================ */
+.c-mrkdwn__pre,
+.c-mrkdwn__code,
+pre,
+code {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+  border: 1px solid var(--theme-border-muted) !important;
+  border-radius: 6px !important;
+}
+
+code {
+  padding: 2px 6px !important;
+}
+
+pre {
+  padding: 12px !important;
+}
+
+/* ============================================
+   BLOCKQUOTES
+   ============================================ */
+.c-mrkdwn__quote,
+blockquote {
+  border-left: 4px solid var(--theme-accent) !important;
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg-muted) !important;
+  padding-left: 12px !important;
+}
+
+/* ============================================
+   MESSAGE INPUT / COMPOSER
+   ============================================ */
+.p-message_input,
+.p-message_input_field,
+.c-texty_input,
+.ql-editor,
+.p-message_input__input_container,
+.p-workspace__input {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+  border-color: var(--theme-border) !important;
+}
+
+.p-message_input_field:focus,
+.c-texty_input:focus,
+.ql-editor:focus {
+  border-color: var(--theme-accent) !important;
+}
+
+/* Placeholder text */
+.ql-placeholder,
+.c-texty_input__placeholder,
+[data-placeholder]::before {
+  color: var(--theme-fg-subtle) !important;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.c-button,
+.c-button--primary {
+  background-color: var(--theme-accent) !important;
+  color: var(--theme-bg) !important;
+  border: none !important;
+}
+
+.c-button:hover,
+.c-button--primary:hover {
+  background-color: var(--theme-accent-bright) !important;
+}
+
+.c-button--outline {
+  background-color: transparent !important;
+  color: var(--theme-accent) !important;
+  border: 1px solid var(--theme-accent) !important;
+}
+
+.c-button--outline:hover {
+  background-color: var(--theme-bg) !important;
+}
+
+/* ============================================
+   THREADS PANEL
+   ============================================ */
+.p-flexpane,
+.p-flexpane__inside_body,
+.p-threads_view,
+.p-threads_view_header,
+.p-thread_view {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+  border-left: 1px solid var(--theme-border-muted) !important;
+}
+
+/* ============================================
+   MODALS / DIALOGS
+   ============================================ */
+.c-dialog__content,
+.c-modal,
+.p-huddle_roster,
+.ReactModal__Content,
+.c-menu,
+.c-menu__items {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+  border: 1px solid var(--theme-border) !important;
+}
+
+.c-menu_item__button,
+.c-menu_item__label {
+  color: var(--theme-fg) !important;
+}
+
+.c-menu_item__button:hover {
+  background-color: var(--theme-bg-subtle) !important;
+}
+
+/* ============================================
+   SEARCH
+   ============================================ */
+.p-search_filter,
+.p-search_filter__input,
+.c-search__input_box,
+.c-search_autocomplete,
+.c-search_autocomplete__suggestion_list {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+  border-color: var(--theme-border) !important;
+}
+
+/* ============================================
+   REACTIONS
+   ============================================ */
+.c-reaction,
+.c-reaction_bar .c-reaction {
+  background-color: var(--theme-bg) !important;
+  border: 1px solid var(--theme-border-muted) !important;
+}
+
+.c-reaction:hover {
+  background-color: var(--theme-bg-subtle) !important;
+  border-color: var(--theme-accent) !important;
+}
+
+.c-reaction--reacted {
+  background-color: rgba(113, 183, 255, 0.15) !important;
+  border-color: var(--theme-accent) !important;
+}
+
+/* ============================================
+   FILE ATTACHMENTS
+   ============================================ */
+.c-file__container,
+.c-file_container,
+.p-file_list__file {
+  background-color: var(--theme-bg) !important;
+  border: 1px solid var(--theme-border-muted) !important;
+}
+
+/* ============================================
+   DAY DIVIDERS
+   ============================================ */
+.c-message_list__day_divider__label {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg-muted) !important;
+}
+
+.c-message_list__day_divider__line {
+  border-color: var(--theme-border-muted) !important;
+}
+
+/* ============================================
+   SCROLLBARS
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--theme-bg) !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-border) !important;
+  border-radius: 4px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-fg-subtle) !important;
+}
+
+/* ============================================
+   MISCELLANEOUS
+   ============================================ */
+/* Dividers */
+hr,
+.c-message_list__unread_divider__separator,
+.c-message_list__unread_divider__label {
+  border-color: var(--theme-red) !important;
+  color: var(--theme-red) !important;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--theme-fg) !important;
+  color: var(--theme-bg) !important;
+}
+
+/* Tooltip */
+.c-tooltip,
+.c-tooltip__tip {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+  border: 1px solid var(--theme-border) !important;
+}
+
+/* Status indicators */
+.c-presence--active {
+  color: var(--theme-green) !important;
+}
+
+.c-presence--away {
+  color: var(--theme-yellow) !important;
+}
+
+/* Draft indicator */
+.p-channel_sidebar__channel--draft:before {
+  background-color: var(--theme-yellow) !important;
+}
+
+/* Emoji picker */
+.c-emoji_picker,
+.c-emoji_picker__list_container {
+  background-color: var(--theme-bg) !important;
+  border-color: var(--theme-border) !important;
+}
+
+/* Member list */
+.c-virtual_list__item,
+.c-member_slug {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+}
+
+/* Keyboard shortcuts modal */
+.p-shortcuts_modal {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+}
+
+kbd {
+  background-color: var(--theme-bg-subtle) !important;
+  color: var(--theme-fg) !important;
+  border: 1px solid var(--theme-border) !important;
+}
+
+/* ============================================
+   DATE BADGES / JUMP BUTTONS
+   ============================================ */
+.c-message_list__day_divider__label__pill,
+.c-date_picker_trigger,
+.c-button--pill,
+.p-message_pane__limited_history_alert,
+button[data-qa="jump_to_date"],
+.p-jumper_button,
+.c-pillow_button,
+.c-pillow_button--primary,
+.c-pillow_button--secondary {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg-muted) !important;
+  border: 1px solid var(--theme-border-muted) !important;
+}
+
+/* Specific date jump pills in message list */
+.c-message_list__day_divider__label button,
+.c-message_list__day_divider button {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg-muted) !important;
+}
+
+/* ============================================
+   LINK UNFURLS / PREVIEW CARDS
+   ============================================ */
+.c-message_attachment,
+.c-message_attachment__body,
+.c-message_attachment__border,
+.c-link_preview,
+.c-link_preview__content,
+.p-block_kit_renderer,
+.c-message_kit__unfurl,
+.c-message_kit__unfurl__content,
+.p-message_attachment,
+.c-unfurl,
+.c-unfurl__container,
+.c-unfurl__body {
+  background-color: var(--theme-bg) !important;
+  border-color: var(--theme-border-muted) !important;
+  color: var(--theme-fg) !important;
+}
+
+/* Unfurl left accent border */
+.c-message_attachment__gutter,
+.c-unfurl__border {
+  background-color: var(--theme-accent) !important;
+}
+
+.c-message_attachment__author,
+.c-message_attachment__title,
+.c-link_preview__title,
+.c-unfurl__title {
+  color: var(--theme-accent) !important;
+}
+
+.c-message_attachment__text,
+.c-link_preview__description,
+.c-unfurl__description,
+.c-unfurl__text {
+  color: var(--theme-fg-muted) !important;
+}
+
+/* ============================================
+   TAB BAR (Messages, Files, Pins)
+   ============================================ */
+.p-tab_bar,
+.p-tab_bar__tab,
+.p-channel_details__tabs,
+.p-channel_details__tab {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+}
+
+.p-tab_bar__tab--selected,
+.p-channel_details__tab--selected {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-fg) !important;
+  border-bottom-color: var(--theme-accent) !important;
+}
+
+/* ============================================
+   TOP WORKSPACE HEADER
+   ============================================ */
+.p-ia4_client,
+.p-ia4_client_container,
+.p-client_workspace_wrapper,
+.p-client_workspace,
+.p-workspace-layout {
+  background-color: var(--theme-bg) !important;
+}
+
+.p-control_strip,
+.p-tab_rail {
+  background-color: var(--theme-bg) !important;
+  border-color: var(--theme-border-muted) !important;
+}
+
+/* ============================================
+   CHANNEL HEADER AREA
+   ============================================ */
+.p-channel_details_header,
+.p-channel_details__header_container {
+  background-color: var(--theme-bg) !important;
+}
+
+/* ============================================
+   LEFT RAIL ICONS
+   ============================================ */
+.p-tab_rail__button,
+.p-control_strip__button {
+  color: var(--theme-fg-muted) !important;
+}
+
+.p-tab_rail__button:hover,
+.p-control_strip__button:hover {
+  background-color: var(--theme-bg-subtle) !important;
+  color: var(--theme-fg) !important;
+}
+
+/* ============================================
+   WYSIWYG / COMPOSER OVERRIDES
+   ============================================ */
+.c-wysiwyg_container,
+.c-wysiwyg_container--theme_dark,
+.c-wysiwyg_container__formatting,
+.c-wysiwyg_container__input,
+.p-message_input__input_container_unstyled,
+.p-message_input_unstyled,
+.ql-container,
+.ql-editor,
+.c-texty_input_unstyled,
+[data-qa="message_input"] {
+  background-color: var(--theme-bg) !important;
+  background: var(--theme-bg) !important;
+  border-color: var(--theme-border) !important;
+}
+
+/* Force dark background on all potential input wrappers */
+div[class*="wysiwyg"],
+div[class*="composer"],
+div[class*="message_input"] {
+  background-color: var(--theme-bg) !important;
+  background: var(--theme-bg) !important;
+}
+
+/* ============================================
+   CHANNEL TAB BAR (Messages, Files, etc.)
+   ============================================ */
+div[class*="channel_tab_bar"],
+div[class*="draggable_tab"],
+div[class*="tabbed_channel"],
+.p-view_contents,
+.p-view_contents--primary,
+.p-view_header__actions {
+  background-color: var(--theme-bg) !important;
+  background: var(--theme-bg) !important;
+}
+
+/* Tab bar items */
+div[class*="channel_tab_bar"] button,
+div[class*="channel_tab_bar"] div {
+  background-color: transparent !important;
+}
+
+/* ============================================
+   MESSAGE INPUT FOOTER AREA
+   ============================================ */
+.p-workspace__primary_view_footer,
+.p-workspace__primary_view_footer--float,
+.p-message_pane_input,
+.p-message_pane_input_inner,
+.p-message_pane_input_inner_main,
+.p-message_pane_input_inner_top {
+  background-color: var(--theme-bg) !important;
+  background: var(--theme-bg) !important;
+}
+
+/* ============================================
+   CONVERSATION DETAILS / PROFILE PANEL
+   ============================================ */
+.c-sk-modal_header,
+.c-sk-modal_content,
+.p-about_modal__header,
+.p-about_modal__contents,
+.p-field_group,
+.p-flexpane__preview-mode-overlay,
+.p-flexpane_header,
+.p-flexpane__inside_body,
+.p-about_modal,
+[class*="about_modal"],
+[class*="sk-modal"] {
+  background-color: var(--theme-bg) !important;
+  background: var(--theme-bg) !important;
+}
+
+/* Profile/details cards */
+.p-about_modal__section,
+.p-profile_section,
+.p-channel_details__section,
+.c-card,
+div[class*="field_group"] {
+  background-color: var(--theme-bg) !important;
+  border-color: var(--theme-border-muted) !important;
+}

@@ -1,0 +1,20 @@
+name: Dracula
+
+colors:
+  bg: "#282a36"
+  bg-subtle: "#44475a"
+  border: "#6272a4"
+  border-muted: "#44475a"
+  fg: "#f8f8f2"
+  fg-muted: "#6272a4"
+  fg-subtle: "#6272a4"
+  accent: "#bd93f9"
+  accent-bright: "#ff79c6"
+  red: "#ff5555"
+  green: "#50fa7b"
+  yellow: "#f1fa8c"
+  purple: "#bd93f9"
+  cyan: "#8be9fd"
+
+font:
+  family: '"Fira Code", monospace'

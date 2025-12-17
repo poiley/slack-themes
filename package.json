@@ -1,0 +1,32 @@
+{
+  "name": "slack-themes",
+  "version": "1.0.0",
+  "description": "Custom CSS themes for the Slack desktop app on macOS",
+  "main": "inject-css.js",
+  "scripts": {
+    "inject": "node inject-css.js",
+    "start": "./start-slack.sh"
+  },
+  "keywords": [
+    "slack",
+    "theme",
+    "dark-mode",
+    "css",
+    "macos",
+    "electron",
+    "customization"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/poiley/slack-themes.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}

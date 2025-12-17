@@ -1,0 +1,20 @@
+name: GitHub Dark High Contrast
+
+colors:
+  bg: "#0a0c10"
+  bg-subtle: "#1a2029"
+  border: "#3d444d"
+  border-muted: "#2a313a"
+  fg: "#f0f3f6"
+  fg-muted: "#9ea7b3"
+  fg-subtle: "#7a828e"
+  accent: "#71b7ff"
+  accent-bright: "#91cbff"
+  red: "#ff9492"
+  green: "#26cd4d"
+  yellow: "#f0b72f"
+  purple: "#cb9eff"
+  cyan: "#39c5cf"
+
+font:
+  family: '"SF Mono", Consolas, monospace'

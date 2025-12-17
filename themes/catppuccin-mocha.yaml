@@ -1,0 +1,20 @@
+name: Catppuccin Mocha
+
+colors:
+  bg: "#1e1e2e"
+  bg-subtle: "#313244"
+  border: "#45475a"
+  border-muted: "#313244"
+  fg: "#cdd6f4"
+  fg-muted: "#a6adc8"
+  fg-subtle: "#6c7086"
+  accent: "#89b4fa"
+  accent-bright: "#b4befe"
+  red: "#f38ba8"
+  green: "#a6e3a1"
+  yellow: "#f9e2af"
+  purple: "#cba6f7"
+  cyan: "#94e2d5"
+
+font:
+  family: '"Cascadia Code", monospace'

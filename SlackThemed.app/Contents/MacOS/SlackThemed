@@ -1,0 +1,23 @@
+#!/usr/bin/osascript
+
+on run
+    tell application "Terminal"
+        set newTab to do script "~/.config/slack/start-slack.sh; exit"
+
+        -- Wait for the script to finish
+        repeat
+            delay 1
+            if not busy of newTab then exit repeat
+        end repeat
+
+        -- Close the window
+        close (every window whose tabs contains newTab)
+
+        delay 0.5
+
+        -- Quit Terminal if no other windows are open
+        if (count of windows) is 0 then
+            quit
+        end if
+    end tell
+end run

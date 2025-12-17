@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Debug/inspection scripts
+inspect-*.js
+check-*.js
+
+# Logs
+*.log
+
+# Legacy files
+inject.sh
+stub-loader.js
+styles.css
+
+# OS files
+.DS_Store
+
+# IDE
+.claude/
+.vscode/

@@ -1,0 +1,20 @@
+name: One Dark
+
+colors:
+  bg: "#282c34"
+  bg-subtle: "#3e4451"
+  border: "#4b5263"
+  border-muted: "#3e4451"
+  fg: "#abb2bf"
+  fg-muted: "#828997"
+  fg-subtle: "#5c6370"
+  accent: "#61afef"
+  accent-bright: "#56b6c2"
+  red: "#e06c75"
+  green: "#98c379"
+  yellow: "#e5c07b"
+  purple: "#c678dd"
+  cyan: "#56b6c2"
+
+font:
+  family: '"Fira Code", monospace'
