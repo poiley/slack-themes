@@ -327,7 +327,7 @@ blockquote {
 }
 
 .c-reaction--reacted {
-  background-color: rgba(113, 183, 255, 0.15) !important;
+  background-color: color-mix(in srgb, var(--theme-accent) 15%, transparent) !important;
   border-color: var(--theme-accent) !important;
 }
 

@@ -10,59 +10,14 @@ const http = require('http');
 const WebSocket = require('ws');
 const fs = require('fs');
 const path = require('path');
+const yaml = require('js-yaml');
 
-const DEBUG_PORT = 9222;
-const CONFIG_DIR = path.join(process.env.HOME, '.config/slack');
+const DEBUG_PORT = process.env.SLACK_DEBUG_PORT || 9222;
+const CONFIG_DIR = process.env.XDG_CONFIG_HOME
+  ? path.join(process.env.XDG_CONFIG_HOME, 'slack')
+  : path.join(process.env.HOME, '.config/slack');
 const THEME_FILE = path.join(CONFIG_DIR, 'theme.yaml');
 const BASE_CSS_FILE = path.join(CONFIG_DIR, 'base.css');
-// Fallback to old styles.css if base.css doesn't exist
-const LEGACY_CSS_FILE = path.join(CONFIG_DIR, 'styles.css');
-
-// Simple YAML parser for our theme format
-function parseYaml(content) {
-  const result = {};
-  let currentSection = null;
-
-  const lines = content.split('\n');
-  for (const line of lines) {
-    // Skip full-line comments and empty lines
-    if (line.trim().startsWith('#') || line.trim() === '') continue;
-
-    // Check indentation
-    const indent = line.search(/\S/);
-    const trimmed = line.trim();
-
-    // Find the first colon that separates key from value
-    const colonIdx = trimmed.indexOf(':');
-    if (colonIdx === -1) continue;
-
-    const key = trimmed.slice(0, colonIdx).trim();
-    let value = trimmed.slice(colonIdx + 1).trim();
-
-    // Remove surrounding quotes from value
-    if ((value.startsWith('"') && value.endsWith('"')) ||
-        (value.startsWith("'") && value.endsWith("'"))) {
-      value = value.slice(1, -1);
-    }
-
-    if (indent === 0) {
-      // Top-level key
-      if (value === '') {
-        // Section header
-        currentSection = key;
-        result[currentSection] = {};
-      } else {
-        // Simple key-value
-        result[key] = value;
-      }
-    } else if (currentSection && indent > 0) {
-      // Nested key-value
-      result[currentSection][key] = value;
-    }
-  }
-
-  return result;
-}
 
 // Generate CSS variables from theme
 function generateCssVariables(theme) {
@@ -157,39 +112,36 @@ async function injectCSS(wsUrl, css) {
 async function main() {
   let css = '';
 
-  // Try to load theme.yaml + base.css
-  if (fs.existsSync(THEME_FILE) && fs.existsSync(BASE_CSS_FILE)) {
-    try {
-      // Read and parse theme
-      const themeContent = fs.readFileSync(THEME_FILE, 'utf8');
-      const theme = parseYaml(themeContent);
-      console.log(`[+] Loaded theme: ${theme.name || 'Custom'}`);
+  // Check required files exist
+  if (!fs.existsSync(THEME_FILE)) {
+    console.error(`[-] Theme file not found: ${THEME_FILE}`);
+    console.error(`    Create theme.yaml in ${CONFIG_DIR}`);
+    process.exit(1);
+  }
 
-      // Generate CSS variables
-      const variables = generateCssVariables(theme);
+  if (!fs.existsSync(BASE_CSS_FILE)) {
+    console.error(`[-] Base CSS not found: ${BASE_CSS_FILE}`);
+    console.error(`    Create base.css in ${CONFIG_DIR}`);
+    process.exit(1);
+  }
 
-      // Read base CSS
-      const baseCSS = fs.readFileSync(BASE_CSS_FILE, 'utf8');
-      console.log(`[+] Loaded base CSS from ${BASE_CSS_FILE}`);
+  try {
+    // Read and parse theme with js-yaml
+    const themeContent = fs.readFileSync(THEME_FILE, 'utf8');
+    const theme = yaml.load(themeContent);
+    console.log(`[+] Loaded theme: ${theme.name || 'Custom'}`);
 
-      // Combine
-      css = variables + baseCSS;
-    } catch (err) {
-      console.error(`[-] Error loading theme: ${err.message}`);
-      process.exit(1);
-    }
-  } else if (fs.existsSync(LEGACY_CSS_FILE)) {
-    // Fallback to legacy styles.css
-    try {
-      css = fs.readFileSync(LEGACY_CSS_FILE, 'utf8');
-      console.log(`[+] Loaded legacy CSS from ${LEGACY_CSS_FILE}`);
-    } catch (err) {
-      console.error(`[-] Could not read CSS file: ${err.message}`);
-      process.exit(1);
-    }
-  } else {
-    console.error(`[-] No theme files found.`);
-    console.error(`    Create theme.yaml and base.css in ${CONFIG_DIR}`);
+    // Generate CSS variables
+    const variables = generateCssVariables(theme);
+
+    // Read base CSS
+    const baseCSS = fs.readFileSync(BASE_CSS_FILE, 'utf8');
+    console.log(`[+] Loaded base CSS from ${BASE_CSS_FILE}`);
+
+    // Combine
+    css = variables + baseCSS;
+  } catch (err) {
+    console.error(`[-] Error loading theme: ${err.message}`);
     process.exit(1);
   }
 

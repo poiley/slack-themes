@@ -288,6 +288,21 @@ This project uses the [Chrome DevTools Protocol](https://chromedevtools.github.i
 
 **No files in the Slack app are modified.** The CSS injection happens at runtime and doesn't affect Slack's code signature or require any special permissions.
 
+## Security Considerations
+
+**Remote debugging port exposure:** This tool launches Slack with a remote debugging port open on `127.0.0.1:9222`. While only accessible locally, any process on your machine can connect to this port and:
+
+- Read all visible Slack messages
+- Execute arbitrary JavaScript in Slack's context
+- Access Slack's session data
+
+**Mitigations:**
+- The port only binds to localhost (not accessible from network)
+- Use a non-default port via `SLACK_DEBUG_PORT` environment variable
+- Only use on trusted machines
+
+This is an inherent tradeoff of runtime CSS injection without modifying application files.
+
 ## File Structure
 
 ```
@@ -304,8 +319,15 @@ This project uses the [Chrome DevTools Protocol](https://chromedevtools.github.i
 │   ├── catppuccin-mocha.yaml
 │   ├── solarized-dark.yaml
 │   └── one-dark.yaml
+├── dev/                # Development/debugging scripts
 └── README.md
 ```
+
+## Compatibility
+
+**Tested with:** Slack 4.x on macOS
+
+Slack updates may change CSS class names, causing some elements to lose theming. If you notice unstyled elements after a Slack update, check `dev/` for inspection scripts to identify new selectors.
 
 ## Troubleshooting
 

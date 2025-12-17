@@ -1,21 +1,18 @@
 # Dependencies
 node_modules/
 
-# Debug/inspection scripts
-inspect-*.js
-check-*.js
-
 # Logs
 *.log
 
-# Legacy files
-inject.sh
-stub-loader.js
-styles.css
+# Backups (from asar modification)
+*.asar.backup
 
 # OS files
 .DS_Store
 
 # IDE
-.claude/
 .vscode/
+.idea/
+
+# Local settings
+.claude/
