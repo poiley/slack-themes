@@ -197,7 +197,7 @@ async function main() {
   let targets;
   try {
     targets = await getTargets();
-  } catch (err) {
+  } catch {
     console.error(`[-] Could not connect to Slack debugging port ${DEBUG_PORT}`);
     console.error(`    Start Slack with: /Applications/Slack.app/Contents/MacOS/Slack --remote-debugging-port=9222`);
     process.exit(1);
