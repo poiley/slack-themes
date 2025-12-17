@@ -111,7 +111,7 @@ To switch themes, copy your preferred theme to `theme.yaml`:
 cp ~/.config/slack/themes/dracula.yaml ~/.config/slack/theme.yaml
 ```
 
-Then relaunch SlackThemed or run `node inject-css.js`.
+Then relaunch SlackThemed or run `npm run inject`.
 
 ### Example Themes
 
@@ -390,7 +390,7 @@ If you find UI elements that aren't themed, you can add selectors to `base.css`:
    ```bash
    cp ~/.config/slack/themes/my-theme.yaml ~/.config/slack/theme.yaml
    ```
-4. Relaunch SlackThemed or run `node inject-css.js`
+4. Relaunch SlackThemed or run `npm run inject`
 
 ## Contributing
 
