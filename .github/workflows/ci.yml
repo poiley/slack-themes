@@ -27,7 +27,7 @@ jobs:
         run: |
           cat > eslint.config.mjs << 'ESLINT'
           export default [{
-            files: ["inject-css.js"],
+            files: ["src/**/*.js"],
             languageOptions: {
               ecmaVersion: 2022,
               sourceType: "commonjs",
@@ -47,7 +47,7 @@ jobs:
             }
           }]
           ESLINT
-          npx eslint inject-css.js
+          npx eslint src/
 
       - name: Validate YAML themes
         run: |

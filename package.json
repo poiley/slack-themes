@@ -4,8 +4,8 @@
   "description": "Custom CSS themes for the Slack desktop app on macOS",
   "main": "inject-css.js",
   "scripts": {
-    "inject": "node inject-css.js",
-    "start": "./start-slack.sh"
+    "inject": "node src/inject-css.js",
+    "start": "./src/start-slack.sh"
   },
   "keywords": [
     "slack",

@@ -2,7 +2,7 @@
 
 on run
     tell application "Terminal"
-        set newTab to do script "~/.config/slack/start-slack.sh; exit"
+        set newTab to do script "~/.config/slack/src/start-slack.sh; exit"
 
         -- Wait for the script to finish
         repeat

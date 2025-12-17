@@ -51,7 +51,7 @@ Now launch Slack using **SlackThemed** — your theme will be applied automatica
 After editing `theme.yaml`, re-apply your theme:
 
 ```bash
-cd ~/.config/slack && node inject-css.js
+cd ~/.config/slack && npm run inject
 ```
 
 Or simply relaunch SlackThemed.
@@ -309,8 +309,9 @@ This is an inherent tradeoff of runtime CSS injection without modifying applicat
 ~/.config/slack/
 ├── theme.yaml          # Your active theme
 ├── base.css            # CSS selectors (edit to add new elements)
-├── inject-css.js       # Injection script
-├── start-slack.sh      # Launch helper (used by SlackThemed.app)
+├── src/
+│   ├── inject-css.js   # Injection script
+│   └── start-slack.sh  # Launch helper (used by SlackThemed.app)
 ├── SlackThemed.app/    # Dock app launcher
 ├── themes/             # Pre-made themes
 │   ├── github-dark-high-contrast.yaml
@@ -319,7 +320,6 @@ This is an inherent tradeoff of runtime CSS injection without modifying applicat
 │   ├── catppuccin-mocha.yaml
 │   ├── solarized-dark.yaml
 │   └── one-dark.yaml
-├── dev/                # Development/debugging scripts
 └── README.md
 ```
 
@@ -327,7 +327,7 @@ This is an inherent tradeoff of runtime CSS injection without modifying applicat
 
 **Tested with:** Slack 4.x on macOS
 
-Slack updates may change CSS class names, causing some elements to lose theming. If you notice unstyled elements after a Slack update, check `dev/` for inspection scripts to identify new selectors.
+Slack updates may change CSS class names, causing some elements to lose theming. If you notice unstyled elements after a Slack update, use the browser DevTools at `http://127.0.0.1:9222` to inspect and identify new selectors.
 
 ## Troubleshooting
 
@@ -340,12 +340,12 @@ Slack updates may change CSS class names, causing some elements to lose theming.
    ```
 3. Manually re-inject the theme:
    ```bash
-   cd ~/.config/slack && node inject-css.js
+   cd ~/.config/slack && npm run inject
    ```
 
 ### Theme disappears after navigating
 
-The theme may need to be reinjected after certain navigation events. Run `node inject-css.js` again, or relaunch SlackThemed.
+The theme may need to be reinjected after certain navigation events. Run `npm run inject` again, or relaunch SlackThemed.
 
 ### Slack won't start
 
@@ -364,7 +364,7 @@ open /Applications/SlackThemed.app
 After editing `theme.yaml`, you must re-inject the theme:
 
 ```bash
-cd ~/.config/slack && node inject-css.js
+cd ~/.config/slack && npm run inject
 ```
 
 ## Advanced
